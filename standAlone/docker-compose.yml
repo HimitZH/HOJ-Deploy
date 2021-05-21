@@ -1,0 +1,166 @@
+version: "3"
+services:
+
+  hoj-redis:
+    image: redis:5.0.9-alpine
+    container_name: hoj-redis
+    restart: always
+    volumes:
+      - ./hoj/data/redis/data:/data
+    networks:
+      hoj-network:
+        ipv4_address: 172.20.0.2
+    ports:
+      - "6379:6379"
+    # --requirepass 后面为redis访问密码
+    command: redis-server --requirepass "hoj123456" --appendonly yes
+        
+  hoj-mysql:
+    image: registry.cn-shenzhen.aliyuncs.com/hcode/hoj_database
+    container_name: hoj-mysql
+    restart: always
+    volumes:
+      - ./hoj/data/mysql/data:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=hoj123456 # mysql数据库root账号的密码
+      - TZ=Asia/Shanghai
+      - NACOS_USERNAME=root # 后续nacos所用管理员账号
+      - NACOS_PASSWORD=hoj123456 # 后续nacos所用管理员密码
+    ports:
+      - "3306:3306"
+    networks:
+      hoj-network:
+        ipv4_address: 172.20.0.3
+      
+  hoj-nacos:
+    image: nacos/nacos-server:1.4.2
+    container_name: hoj-nacos
+    restart: always
+    depends_on: 
+      - hoj-mysql
+    environment:
+      - JVM_XMX=384m
+      - JVM_XMS=384m
+      - JVM_XMN=192m
+      - MODE=standalone
+      - SPRING_DATASOURCE_PLATFORM=mysql
+      - MYSQL_SERVICE_HOST=172.20.0.3
+      - MYSQL_SERVICE_PORT=3306
+      - MYSQL_SERVICE_USER=root
+      - MYSQL_SERVICE_PASSWORD=hoj123456 # 与上面数据库密码一致
+      - MYSQL_SERVICE_DB_NAME=nacos 
+      - NACOS_AUTH_ENABLE=true # 开启鉴权
+
+    ports:
+      - "8848:8848"
+    networks:
+      hoj-network:
+        ipv4_address: 172.20.0.4
+    
+  hoj-backend:
+    image: registry.cn-shenzhen.aliyuncs.com/hcode/hoj_backend
+    container_name: hoj-backend
+    restart: always
+    depends_on:
+      - hoj-redis
+      - hoj-mysql
+      - hoj-nacos
+    volumes:
+      - ./hoj/file:/hoj/file
+      - ./hoj/testcase:/hoj/testcase
+      - ./hoj/log/backend:/hoj/log/backend
+    environment:
+      - TZ=Asia/Shanghai
+      - BACKEND_SERVER_PORT=6688
+      - NACOS_URL=172.20.0.4:8848
+      - NACOS_USERNAME=root # 登录 http://ip:8848/nacos 分布式配置中心与注册中心的后台的账号
+      - NACOS_PASSWORD=hoj123456 # 密码
+      - JWT_TOKEN_SECRET=default # 加密秘钥 默认则生成32位随机密钥
+      - JWT_TOKEN_EXPIRE=86400 # token过期时间默认为24小时 86400s
+      - JWT_TOKEN_FRESH_EXPIRE=43200 # token默认12小时可自动刷新
+      - JUDGE_TOKEN=default # 调用判题服务器的token 默认则生成32位随机密钥
+      - MYSQL_HOST=172.20.0.3
+      - MYSQL_PUBLIC_HOST=172.20.0.3 # 如果判题服务是分布式，请提供当前mysql所在服务器的公网ip
+      - MYSQL_PORT=3306
+      - MYSQL_DATABASE_NAME=hoj # 改动需要修改hoj-mysql镜像,默认为hoj
+      - MYSQL_USERNAME=root
+      - MYSQL_ROOT_PASSWORD=hoj123456
+      - EMAIL_SERVER_HOST=smtp.qq.com # 请使用邮件服务的域名或ip
+      - EMAIL_SERVER_PORT=465 # 请使用邮件服务的端口号
+      - EMAIL_USERNMAE=your_email_username # 请使用对应邮箱账号
+      - EMAIL_PASSWORD=your_email_password # 请使用对应邮箱密码
+      - REDIS_HOST=172.20.0.2
+      - REDIS_PORT=6379
+      - REDIS_PASSWORD=hoj123456
+      - OPEN_REMOTE_JUDGE=true # 是否开启对hdu和codeforces的虚拟判题
+      # 开启虚拟判题请提供对应oj的账号密码 格式为 
+      # username1,username2,...
+      # password1,password2,...
+      - HDU_ACCOUNT_USERNAME_LIST=
+      - HDU_ACCOUNT_PASSWORD_LIST=
+      - CF_ACCOUNT_USERNAME_LIST=
+      - CF_ACCOUNT_USERNAME_LIST=
+    ports:
+      - "6688:6688"
+    networks:
+      hoj-network:
+        ipv4_address: 172.20.0.5
+  
+  hoj-frontend:
+    image: registry.cn-shenzhen.aliyuncs.com/hcode/hoj_frontend
+    container_name: hoj-frontend
+    restart: always
+    # 开启https，请提供证书
+    #volumes:
+    #  - ./server.crt:/etc/nginx/etc/crt/server.crt
+    #  - ./server.key:/etc/nginx/etc/crt/server.key
+    environment:
+      - SERVER_NAME=localhost # 域名或ip
+      - BACKEND_SERVER_HOST=172.20.0.5 # 后端服务地址
+      - BACKEND_SERVER_PORT=6688
+      - USE_HTTPS=false # 使用https请设置为true
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      hoj-network:
+        ipv4_address: 172.20.0.6
+  
+  hoj-judgeserver:
+    image: registry.cn-shenzhen.aliyuncs.com/hcode/hoj_judgeserver
+    container_name: hoj-judgeserver
+    restart: always
+    depends_on:
+      - hoj-mysql
+      - hoj-nacos
+    volumes:
+      - ./judge/test_case:/judge/test_case
+      - ./judge/log:/judge/log
+      - ./judge/run:/judge/run
+      - ./judge/spj:/judge/spj
+      - ./judge/log/judgeserver:/judge/log/judgeserver
+    environment:
+      - TZ=Asia:/Shanghai
+      - JUDGE_SERVER_IP=172.20.0.7
+      - JUDGE_SERVER_PORT=8088
+      - JUDGE_SERVER_NAME=judger-standAlone # 判题服务的名字
+      - NACOS_URL=172.20.0.4:8848
+      - NACOS_USERNAME=root 
+      - NACOS_PASSWORD=hoj123456
+      - MAX_TASK_NUM=-1 # -1表示最大并行任务数为cpu核心数*2
+      - REMOTE_JUDGE_OPEN=true # 当前判题服务器是否开启远程虚拟判题功能
+      - REMOTE_JUDGE_MAX_TASK_NUM=-1 # -1表示最大并行任务数为(cpu核心数*2)*2
+    ports:
+      - "0.0.0.0:8088:8088"
+      # - "0.0.0.0:5050:5050" # 一般不开放安全沙盒端口
+    privileged: true # 设置容器的权限为root
+    networks:
+      hoj-network:
+        ipv4_address: 172.20.0.7
+    
+networks:
+   hoj-network:
+     driver: bridge
+     ipam:
+       config:
+         - subnet: 172.20.0.0/16
