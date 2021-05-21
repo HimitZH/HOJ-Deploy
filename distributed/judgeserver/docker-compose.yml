@@ -25,6 +25,11 @@ services:
     ports:
       - "0.0.0.0:8088:8088"
       # - "0.0.0.0:5050:5050" # 一般不开放安全沙盒端口
+    healthcheck:
+      test: curl -f http://localhost:8088/version || exit 1
+      interval: 3s
+      timeout: 10s
+      retries: 10
     privileged: true # 设置容器的权限为root
 
   hoj-rsync-slave:
@@ -35,8 +40,8 @@ services:
       - ./judge/test_case:/hoj/testcase
       - ./judge/log:/hoj/log
     environment:
-      - RSYNC_MODE=slave
-      - RSYNC_USER=hojrsync
+      - RSYNC_MODE=slave # 当前为slave从服务
+      - RSYNC_USER=hojrsync # 与主服务器的rsync的用户一致
       - RSYNC_PASSWORD=hoj123456 # 请修改这里 与主服务器的rsync密码一致
       - RSYNC_MASTER_ADDR=127.0.0.1 # 请修改这里 写入主服务器ip
     ports:

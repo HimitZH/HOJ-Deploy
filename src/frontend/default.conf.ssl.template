@@ -1,0 +1,47 @@
+server {
+    listen 80;
+    #填写绑定证书的域名
+    server_name ${SERVER_NAME};
+    #把http的域名请求转成https
+    return 301 https://$host$request_uri;
+}
+
+server {
+	listen 443 ssl;
+	server_name ${SERVER_NAME};
+    #证书文件名称
+    ssl_certificate /etc/nginx/etc/crt/server.crt;
+    #私钥文件名称
+    ssl_certificate_key /etc/nginx/etc/crt/server.key;
+    ssl_session_timeout 5m;
+    #请按照以下协议配置
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    #请按照以下套件配置，配置加密套件，写法遵循 openssl 标准。
+    ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
+    ssl_prefer_server_ciphers on;
+
+	root /usr/share/nginx/html;
+    location /api{
+		proxy_pass http://${BACKEND_SERVER_HOST}:${BACKEND_SERVER_PORT}; # 填写你的后端地址和端口
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	    proxy_set_header   Host                 $http_host;
+        proxy_set_header   X-Forwarded-Proto    $scheme;
+          
+        client_max_body_size 128M;
+    }
+    location ~ .*\.(js|json|css)$ {
+            gzip on;
+            gzip_static on; # gzip_static是nginx对于静态文件的处理模块，该模块可以读取预先压缩的gz文件，这样可以减少每次请求进行gzip压缩的CPU资源消耗。
+            gzip_min_length 1k;
+            gzip_http_version 1.1;
+            gzip_comp_level 9;
+            gzip_types  text/css application/javascript application/json;
+            root /usr/share/nginx/html;
+    }
+    location / {  # 路由重定向以适应Vue中的路由
+            index index.html;
+            try_files $uri $uri/ /index.html;
+    }
+	
+}

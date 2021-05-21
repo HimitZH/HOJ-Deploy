@@ -1,0 +1,28 @@
+server {
+	listen 80;
+	server_name ${SERVER_NAME};
+	root /usr/share/nginx/html;
+    location /api{
+		proxy_pass http://${BACKEND_SERVER_HOST}:${BACKEND_SERVER_PORT}; # 填写你的后端地址和端口
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+	    proxy_set_header   Host                 $http_host;
+        proxy_set_header   X-Forwarded-Proto    $scheme;
+          
+        client_max_body_size 128M;
+    }
+    location ~ .*\.(js|json|css)$ {
+            gzip on;
+            gzip_static on; # gzip_static是nginx对于静态文件的处理模块，该模块可以读取预先压缩的gz文件，这样可以减少每次请求进行gzip压缩的CPU资源消耗。
+            gzip_min_length 1k;
+            gzip_http_version 1.1;
+            gzip_comp_level 9;
+            gzip_types  text/css application/javascript application/json;
+            root /usr/share/nginx/html;
+    }
+    location / {  # 路由重定向以适应Vue中的路由
+            index index.html;
+            try_files $uri $uri/ /index.html;
+    }
+	
+}

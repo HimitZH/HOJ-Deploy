@@ -1,0 +1,163 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="/favicon.ico"><link rel="stylesheet" href="https://cdn.bootcss.com/material-design-icons/3.0.1/iconfont/material-icons.css"><link href="https://cdn.bootcdn.net/ajax/libs/element-ui/2.14.0/theme-chalk/index.min.css" rel="stylesheet"><link href="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.12.0/katex.min.css" rel="stylesheet"><link href="https://cdn.bootcdn.net/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css" rel="stylesheet"><link href="https://cdn.jsdelivr.net/npm/vxe-table@2.9.26/lib/style.css" rel="stylesheet"><title>Hcode OnlineJudge</title><script>// IE 10 and earlier
+    if (window.navigator.userAgent.indexOf('MSIE ') > 0 &&
+      window.confirm('Your browser is not supported, click \'OK\' to update')) {
+      window.location = 'http://outdatedbrowser.com'
+    }</script><style>@-webkit-keyframes enter {
+      0% {
+        opacity: 0;
+        top: -10px;
+      }
+
+      5% {
+        opacity: 1;
+        top: 0px;
+      }
+
+      50.9% {
+        opacity: 1;
+        top: 0px;
+      }
+
+      55.9% {
+        opacity: 0;
+        top: 10px;
+      }
+    }
+
+    @keyframes enter {
+      0% {
+        opacity: 0;
+        top: -10px;
+      }
+
+      5% {
+        opacity: 1;
+        top: 0px;
+      }
+
+      50.9% {
+        opacity: 1;
+        top: 0px;
+      }
+
+      55.9% {
+        opacity: 0;
+        top: 10px;
+      }
+    }
+
+    @-moz-keyframes enter {
+      0% {
+        opacity: 0;
+        top: -10px;
+      }
+
+      5% {
+        opacity: 1;
+        top: 0px;
+      }
+
+      50.9% {
+        opacity: 1;
+        top: 0px;
+      }
+
+      55.9% {
+        opacity: 0;
+        top: 10px;
+      }
+    }
+
+    body {
+      background: #f8f8f9;
+    }
+
+    #app-loader {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-left: -27.5px;
+      margin-top: -27.5px;
+    }
+
+    #app-loader .square {
+      background: #2d8cf0;
+      width: 15px;
+      height: 15px;
+      float: left;
+      top: -10px;
+      margin-right: 5px;
+      margin-top: 5px;
+      position: relative;
+      opacity: 0;
+      -webkit-animation: enter 6s infinite;
+      animation: enter 6s infinite;
+    }
+
+    #app-loader .enter {
+      top: 0px;
+      opacity: 1;
+    }
+
+    #app-loader .square:nth-child(1) {
+      -webkit-animation-delay: 1.8s;
+      -moz-animation-delay: 1.8s;
+      animation-delay: 1.8s;
+    }
+
+    #app-loader .square:nth-child(2) {
+      -webkit-animation-delay: 2.1s;
+      -moz-animation-delay: 2.1s;
+      animation-delay: 2.1s;
+    }
+
+    #app-loader .square:nth-child(3) {
+      -webkit-animation-delay: 2.4s;
+      -moz-animation-delay: 2.4s;
+      animation-delay: 2.4s;
+      background: #ff9900;
+    }
+
+    #app-loader .square:nth-child(4) {
+      -webkit-animation-delay: 0.9s;
+      -moz-animation-delay: 0.9s;
+      animation-delay: 0.9s;
+    }
+
+    #app-loader .square:nth-child(5) {
+      -webkit-animation-delay: 1.2s;
+      -moz-animation-delay: 1.2s;
+      animation-delay: 1.2s;
+    }
+
+    #app-loader .square:nth-child(6) {
+      -webkit-animation-delay: 1.5s;
+      -moz-animation-delay: 1.5s;
+      animation-delay: 1.5s;
+    }
+
+    #app-loader .square:nth-child(8) {
+      -webkit-animation-delay: 0.3s;
+      -moz-animation-delay: 0.3s;
+      animation-delay: 0.3s;
+    }
+
+    #app-loader .square:nth-child(9) {
+      -webkit-animation-delay: 0.6s;
+      -moz-animation-delay: 0.6s;
+      animation-delay: 0.6s;
+    }
+
+    #app-loader .clear {
+      clear: both;
+    }
+
+    #app-loader .last {
+      margin-right: 0;
+    }
+
+    #app-loader .loader-content {
+      color: #3498db;
+      font-size: 16px;
+      font-weight: 600;
+    }</style><link href="/assets/css/app.9363b51a.css" rel="preload" as="style"><link href="/assets/css/chunk-vendors.89af377a.css" rel="preload" as="style"><link href="/assets/js/app.c6771ea7.js" rel="preload" as="script"><link href="/assets/js/chunk-vendors.8417db4b.js" rel="preload" as="script"><link href="/assets/css/chunk-vendors.89af377a.css" rel="stylesheet"><link href="/assets/css/app.9363b51a.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but hoj-vue doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"></div><div id="app-loader"><div class="square"></div><div class="square"></div><div class="square last"></div><div class="square clear"></div><div class="square"></div><div class="square last"></div><div class="square clear"></div><div class="square"></div><div class="square last"></div><div class="loader-content"><span>Loading...</span></div></div><script src="https://cdn.bootcdn.net/ajax/libs/vue/2.6.11/vue.min.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/vue-router/3.2.0/vue-router.min.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/vuex/3.5.1/vuex.min.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.14.0/index.min.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.3.2/highlight.min.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/KaTeX/0.12.0/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/xe-utils"></script><script src="https://cdn.jsdelivr.net/npm/vxe-table@2.9.26"></script><script src="https://cdn.bootcss.com/moment.js/2.29.1/moment.min.js"></script><script src="https://cdn.bootcss.com/moment.js/2.29.1/locale/zh-cn.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/echarts/4.9.0-rc.1/echarts.min.js"></script><script src="https://cdn.bootcdn.net/ajax/libs/vue-echarts/5.0.0-beta.0/vue-echarts.min.js"></script><script src="/assets/js/chunk-vendors.8417db4b.js"></script><script src="/assets/js/app.c6771ea7.js"></script></body></html>
