@@ -2,7 +2,7 @@
 
 ### Linux 环境
 
-####1. 安装必要的依赖
+#### 1. 安装必要的依赖
 
 ```shell
 sudo apt-get update && sudo apt-get install -y vim curl git
