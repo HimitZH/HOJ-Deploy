@@ -88,7 +88,7 @@ Windows 下的安装仅供体验，勿在生产环境使用。如有必要，请
 1. 选择好需要安装的位置，运行下面命令
 
    ```shell
-   git clone git@gitee.com:himitzh0730/hoj-deploy.git && cd hoj-deploy
+   git clone https://gitee.com/himitzh0730/hoj-deploy.git && cd hoj-deploy
    ```
 
 2. 单机部署（建议服务器内存2G以上）

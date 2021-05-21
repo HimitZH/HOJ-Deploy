@@ -99,7 +99,7 @@ services:
       - HDU_ACCOUNT_USERNAME_LIST=
       - HDU_ACCOUNT_PASSWORD_LIST=
       - CF_ACCOUNT_USERNAME_LIST=
-      - CF_ACCOUNT_USERNAME_LIST=
+      - CF_ACCOUNT_PASSWORD_LIST=
     ports:
       - "6688:6688"
     networks:
