@@ -134,11 +134,11 @@ services:
       - hoj-mysql
       - hoj-nacos
     volumes:
-      - ./judge/test_case:/judge/test_case
-      - ./judge/log:/judge/log
-      - ./judge/run:/judge/run
-      - ./judge/spj:/judge/spj
-      - ./judge/log/judgeserver:/judge/log/judgeserver
+      - ./hoj/testcase:/judge/test_case
+      - ./hoj/judge/log:/judge/log
+      - ./hoj/judge/run:/judge/run
+      - ./hoj/judge/spj:/judge/spj
+      - ./hoj/log/judgeserver:/judge/log/judgeserver
     environment:
       - TZ=Asia:/Shanghai
       - JUDGE_SERVER_IP=172.20.0.7
