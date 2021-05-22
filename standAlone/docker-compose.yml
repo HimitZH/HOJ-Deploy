@@ -42,8 +42,7 @@ services:
     container_name: hoj-nacos
     restart: always
     depends_on: 
-      hoj-mysql:
-        condition: service_healthy
+      - hoj-mysql
     environment:
       - JVM_XMX=384m
       - JVM_XMS=384m
