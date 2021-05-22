@@ -59,10 +59,9 @@ services:
       - "8848:8848"
     healthcheck:
       test: curl -f http://172.20.0.4:8846/nacos/index.html || exit 1
-      start_period: 20s
-      interval: 2s
+      interval: 6s
       timeout: 10s
-      retries: 5
+      retries: 10
     networks:
       hoj-network:
         ipv4_address: 172.20.0.4
