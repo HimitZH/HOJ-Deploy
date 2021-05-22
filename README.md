@@ -107,24 +107,24 @@ Windows 下的安装仅供体验，勿在生产环境使用。如有必要，请
    docker ps -a
    ```
 
-   当看到所有的容器的状态status都为`UP`就代表 OJ 已经启动成功。
+   当看到所有的容器的状态status都为`UP`或`healthy`就代表 OJ 已经启动成功。
+
+   > 更多自定义配置请查看**/standAlone/.env**的文件，或者/src下各组件的详情说明
 
    > 以下默认参数说明
-
+   
    - 默认超级管理员账号与密码：root / hoj123456
    - 默认redis密码：hoj123456
    - 默认mysql账号与密码：root / hoj123456
    - 默认nacos管理员账号与密码：root / hoj123456
    - 默认不开启https，开启需修改文件同时提供证书文件
    - 判题并发数默认：cpu核心数*2
-   - 默认开启vj判题，需要手动修改添加账号与密码，如果不添加不能vj判题！
+- 默认开启vj判题，需要手动修改添加账号与密码，如果不添加不能vj判题！
    - vj判题并发数默认：cpu核心数*4
 
    **登录root账号到后台查看服务状态以及到`http://ip/admin/conf`修改服务配置!**
 
    <u>注意：网站的注册及用户账号相关操作需要邮件系统，所以请在系统配置中配置自己的邮件服务。</u>
-
-   > 更多详情请查看/standAlone/docker-compose.xml的配置，或者/src下各组件的详情说明
 
 3. 分布式部署（默认开启rsync数据同步）
 
@@ -132,7 +132,7 @@ Windows 下的安装仅供体验，勿在生产环境使用。如有必要，请
 
      ```shell
      cd distributed/main
-     vim docker-compose.yml # 请根据文件内注释提示修改
+     vim .env # 请根据文件内注释提示修改
      ```
 
      配置修改保存后，在`docker-compose.yml`当前路径下启动该服务
@@ -145,7 +145,7 @@ Windows 下的安装仅供体验，勿在生产环境使用。如有必要，请
 
      ```shell
      cd distributed/judgeserver
-     vim docker-compose.yml # 请根据文件内注释提示修改
+     vim .env # 请根据文件内注释提示修改
      ```
 
      配置修改保存后，在`docker-compose.yml`当前路径下启动该服务
@@ -156,7 +156,38 @@ Windows 下的安装仅供体验，勿在生产环境使用。如有必要，请
 
    两个服务都启动完成，在浏览器输入主服务ip或域名进行访问，登录root账号到后台查看服务状态以及到`http://ip/admin/conf`修改服务配置!
 
-   
+
+> 如果需要开启https
+
+- 单机：
+
+  提供server.crt和server.key证书与密钥文件放置`/standAlone`目录下，与`docker-compose.yml`和`.env`文件放置同一位置，然后修改`docker-compose.yml`中的hoj-frontend的配置
+
+- 分布式：提供server.crt和server.key证书与密钥文件放置`/distributed/main目录下，与`docker-compose.yml`和`.env`文件放置同一位置，然后修改`docker-compose.yml`中的hoj-frontend的配置
+
+```yaml
+hoj-frontend:
+    image: registry.cn-shenzhen.aliyuncs.com/hcode/hoj_frontend
+    container_name: hoj-frontend
+    restart: always
+    # 开启https，请提供证书
+    #volumes:
+      - ./server.crt:/etc/nginx/etc/crt/server.crt
+      - ./server.key:/etc/nginx/etc/crt/server.key
+    environment:
+      - SERVER_NAME=localhost  # 提供你的域名！！！！
+      - BACKEND_SERVER_HOST=${BACKEND_HOST:-172.20.0.5} # backend后端服务地址
+      - BACKEND_SERVER_PORT=${BACKEND_PORT:-6688} # backend后端服务端口号
+      - USE_HTTPS=true # 使用https请设置为true
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      hoj-network:
+        ipv4_address: 172.20.0.6
+```
+
+
 
 # 最后
 
