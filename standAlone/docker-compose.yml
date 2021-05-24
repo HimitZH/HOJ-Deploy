@@ -124,6 +124,7 @@ services:
     #  - ./server.crt:/etc/nginx/etc/crt/server.crt
     #  - ./server.key:/etc/nginx/etc/crt/server.key
     environment:
+      - JAVA_OPTS=-Xms192m -Xmx384m # 修正JVM参数以便适应单机部署
       - SERVER_NAME=localhost # # 域名或localhost(本地)
       - BACKEND_SERVER_HOST=${BACKEND_HOST:-172.20.0.5} # backend后端服务地址
       - BACKEND_SERVER_PORT=${BACKEND_PORT:-6688} # backend后端服务端口号
