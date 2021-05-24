@@ -15,7 +15,7 @@ services:
       - TZ=Asia:/Shanghai
       - JUDGE_SERVER_IP=${JUDGE_SERVER_IP} # 服务器公网ip
       - JUDGE_SERVER_PORT=${JUDGE_SERVER_PORT:-8088}
-      - JUDGE_SERVER_NAME=${JUDGE_SERVER_NAME:} # 判题服务的名称，最好每个判题机不一样
+      - JUDGE_SERVER_NAME=${JUDGE_SERVER_NAME} # 判题服务的名称，最好每个判题机不一样
       - NACOS_URL=${NACOS_HOST}:${NACOS_PORT}  # nacos所在服务的ip:port
       - NACOS_USERNAME=${NACOS_USERNAME:-root}  # 分布式需要修正nacos账号密码
       - NACOS_PASSWORD=${NACOS_PASSWORD:-hoj123456}

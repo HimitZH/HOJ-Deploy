@@ -80,6 +80,7 @@ services:
       - ./hoj/log/backend:/hoj/log/backend
     environment:
       - TZ=Asia/Shanghai
+      - JAVA_OPTS=-Xms192m -Xmx384m
       - BACKEND_SERVER_PORT=${BACKEND_PORT:-6688}
       - NACOS_URL=${NACOS_HOST:-172.20.0.4}:${NACOS_PORT:-8848}
       - NACOS_USERNAME=${NACOS_USERNAME:-root} # 登录 http://ip:8848/nacos 分布式配置中心与注册中心的后台的账号
