@@ -50,7 +50,7 @@ services:
       - MODE=standalone
       - SPRING_DATASOURCE_PLATFORM=mysql
       - MYSQL_SERVICE_HOST=${MYSQL_HOST:-172.20.0.3}
-      - MYSQL_SERVICE_PORT=${MYSQL_PORT:-3306}
+      - MYSQL_SERVICE_PORT=3306
       - MYSQL_SERVICE_USER=root
       - MYSQL_SERVICE_PASSWORD=${MYSQL_ROOT_PASSWORD:-hoj123456} # 与上面数据库密码一致
       - MYSQL_SERVICE_DB_NAME=nacos 
@@ -58,7 +58,7 @@ services:
     ports:
       - ${NACOS_PORT:-8848}:8848
     healthcheck:
-      test: curl -f http://${NACOS_HOST:-172.20.0.4}:${NACOS_PORT:-8848}/nacos/index.html || exit 1
+      test: curl -f http://${NACOS_HOST:-172.20.0.4}:8848/nacos/index.html || exit 1
       interval: 6s
       timeout: 10s
       retries: 10
@@ -81,7 +81,7 @@ services:
     environment:
       - TZ=Asia/Shanghai
       - BACKEND_SERVER_PORT=${BACKEND_PORT:-6688}
-      - NACOS_URL=${NACOS_HOST:-172.20.0.4}:${NACOS_PORT:-8848}
+      - NACOS_URL=${NACOS_HOST:-172.20.0.4}:8848
       - NACOS_USERNAME=${NACOS_USERNAME:-root} # 登录 http://ip:8848/nacos 分布式配置中心与注册中心的后台的账号
       - NACOS_PASSWORD=${NACOS_PASSWORD:-hoj123456} # 密码
       - JWT_TOKEN_SECRET=${JWT_TOKEN_SECRET:-default} # token加密秘钥 默认则生成32位随机密钥
@@ -90,7 +90,7 @@ services:
       - JUDGE_TOKEN=${JUDGE_TOKEN:-default} # 调用判题服务器的token 默认则生成32位随机密钥
       - MYSQL_HOST=${MYSQL_HOST:-172.20.0.3}
       - MYSQL_PUBLIC_HOST=${MYSQL_PUBLIC_HOST:-172.20.0.3} # 如果判题服务是分布式，请提供当前mysql所在服务器的公网ip
-      - MYSQL_PORT=${MYSQL_PORT:-3306}
+      - MYSQL_PORT=3306
       - MYSQL_DATABASE_NAME=hoj # 改动需要修改hoj-mysql镜像,默认为hoj
       - MYSQL_USERNAME=root
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-hoj123456}
@@ -99,7 +99,7 @@ services:
       - EMAIL_USERNMAE=${EMAIL_USERNMAE:-your_email_username} # 请使用对应邮箱账号
       - EMAIL_PASSWORD=${EMAIL_PASSWORD:-your_email_password} # 请使用对应邮箱密码
       - REDIS_HOST=${REDIS_HOST:-172.20.0.2}
-      - REDIS_PORT=${REDIS_PORT:-6379}
+      - REDIS_PORT=6379
       - REDIS_PASSWORD=${REDIS_PASSWORD:-hoj123456}
       - OPEN_REMOTE_JUDGE=true # 是否开启对hdu和codeforces的虚拟判题
       # 开启虚拟判题请提供对应oj的账号密码 格式为 
