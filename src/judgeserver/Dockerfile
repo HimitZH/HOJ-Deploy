@@ -18,6 +18,8 @@ COPY run.sh /judge/server/run.sh
 
 COPY check_nacos.sh /judge/server/check_nacos.sh
 
+COPY testlib.h /usr/include/testlib.h
+
 ADD SandBox /judge/server/SandBox	
 	
 WORKDIR /judge/server
