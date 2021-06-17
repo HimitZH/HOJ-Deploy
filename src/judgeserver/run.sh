@@ -1,7 +1,7 @@
 
 chmod +777 SandBox
 
-nohup ./SandBox --silent=true &
+nohup ./SandBox --silent=true --file-timeout=2m &
 
 if test -z "$JAVA_OPTS";then
 	java -XX:+UseG1GC -Djava.security.egd=file:/dev/./urandom -jar ./app.jar 

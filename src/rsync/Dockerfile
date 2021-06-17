@@ -8,4 +8,4 @@ COPY run.sh /hoj/rsyncd/run.sh
 
 COPY rsyncd.conf /hoj/rsyncd/rsyncd.conf
 
-CMD /bin/bash /hoj/rsyncd/run.sh
+CMD /bin/bash /hoj/rsyncd/run.sh && tail -f /dev/null
