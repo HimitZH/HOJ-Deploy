@@ -10,6 +10,7 @@ ENV AUTO_RUN_DIR /docker-entrypoint-initdb.d
 ENV FILE_0 hoj.sql
 ENV FILE_1 nacos.sql
 ENV FILE_2 nacos-data.sql
+ENV FILE_3 hoj-update.sql
 
 #定义shell文件名
 ENV INSTALL_DATA_SHELL run.sh
@@ -23,6 +24,7 @@ ENV NACOS_PASSWORD=${NACOS_PASSWORD}
 
 COPY ./$FILE_0 $WORK_PATH/
 COPY ./$FILE_1 $WORK_PATH/
+COPY ./$FILE_3 $WORK_PATH/
 
 COPY ./$INSTALL_DATA_SHELL $AUTO_RUN_DIR/
 COPY ./bcrypt  $WORK_PATH/
