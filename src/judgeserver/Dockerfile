@@ -12,6 +12,8 @@ RUN buildDeps='software-properties-common libtool' && \
 
 RUN mkdir -p /judge/test_case /judge/run /judge/spj /judge/log
 
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 COPY *.jar /judge/server/app.jar
 
 COPY run.sh /judge/server/run.sh

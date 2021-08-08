@@ -11,7 +11,5 @@ system echo '================Start create database nacos==================';
 source $WORK_PATH/$FILE_1;
 system echo '================Start insert user into nacos=================';
 source $WORK_PATH/$FILE_2;
-system echo '================Start update database hoj====================';
-source $WORK_PATH/$FILE_3;
 system echo '=====================Everything is ok!=======================';
 EOF
