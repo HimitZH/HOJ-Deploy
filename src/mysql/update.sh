@@ -1,7 +1,6 @@
 #!/bin/bash
 
-mysqld --user=root --daemonize
-sleep 3;
+sleep 3
 mysql -uroot -p$MYSQL_ROOT_PASSWORD << EOF
 system echo '================Start update database hoj====================';
 source $WORK_PATH/$FILE_3;

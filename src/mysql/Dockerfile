@@ -41,6 +41,3 @@ RUN chmod +777 $WORK_PATH/$FILE_2
 RUN chmod a+x $AUTO_RUN_DIR/$INSTALL_DATA_SHELL
 
 RUN chmod a+x $WORK_PATH/update.sh
-
-CMD ["bash","-c","/usr/local/work/update.sh start && tail -f /dev/null"]
-
