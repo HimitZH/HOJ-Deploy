@@ -171,7 +171,7 @@ services:
       # - "0.0.0.0:5050:5050" # 一般不开放安全沙盒端口
     healthcheck:
       test: curl -f http://${JUDGE_SERVER_IP:-172.20.0.7}:${JUDGE_SERVER_PORT:-8088}/version || exit 1
-      interval: 10s
+      interval: 20s
       timeout: 10s
       retries: 6
     privileged: true # 设置容器的权限为root
