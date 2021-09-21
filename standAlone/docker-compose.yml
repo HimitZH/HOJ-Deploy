@@ -178,6 +178,20 @@ services:
     networks:
       hoj-network:
         ipv4_address: 172.20.0.7
+
+
+  hoj-mysql-checker:
+    image: registry.cn-shenzhen.aliyuncs.com/hcode/hoj_database_checker
+    container_name: hoj-mysql-checker
+    depends_on:
+      - hoj-mysql
+    links:
+      - hoj-mysql:mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-hoj123456}
+    networks:
+      hoj-network:
+        ipv4_address: 172.20.0.8
     
   hoj-autohealth:  # 监控不健康的容器进行重启
     restart: always

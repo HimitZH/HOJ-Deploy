@@ -10,7 +10,6 @@ ENV AUTO_RUN_DIR /docker-entrypoint-initdb.d
 ENV FILE_0 hoj.sql
 ENV FILE_1 nacos.sql
 ENV FILE_2 nacos-data.sql
-ENV FILE_3 hoj-update.sql
 
 #定义shell文件名
 ENV INSTALL_DATA_SHELL run.sh
@@ -28,7 +27,8 @@ COPY ./$FILE_3 $WORK_PATH/
 
 COPY ./$INSTALL_DATA_SHELL $AUTO_RUN_DIR/
 COPY ./bcrypt  $WORK_PATH/
-COPY ./update.sh  $WORK_PATH/
+
+COPY ./mysql.cnf /etc/mysql/conf.d/
 
 RUN chmod a+x $WORK_PATH/bcrypt
 
@@ -39,5 +39,3 @@ RUN chmod +777 $WORK_PATH/$FILE_2
 #给执行文件增加可执行权限
 
 RUN chmod a+x $AUTO_RUN_DIR/$INSTALL_DATA_SHELL
-
-RUN chmod a+x $WORK_PATH/update.sh
