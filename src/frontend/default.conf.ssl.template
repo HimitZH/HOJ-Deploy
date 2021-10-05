@@ -28,7 +28,7 @@ server {
 	    proxy_set_header   Host                 $http_host;
         proxy_set_header   X-Forwarded-Proto    $scheme;
           
-        client_max_body_size 128M;
+        client_max_body_size 256M;
     }
     location ~ .*\.(js|json|css)$ {
             gzip on;
