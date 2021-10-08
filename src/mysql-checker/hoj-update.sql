@@ -211,3 +211,92 @@ DELIMITER ;
 CALL Add_msg_table;
 
 DROP PROCEDURE Add_msg_table;
+
+
+
+
+/*
+* 2021.10.06 user_info增加性别列gender 比赛榜单用户名称显示可选
+			 
+*/
+DROP PROCEDURE
+IF EXISTS user_info_Add_gender;
+DELIMITER $$
+ 
+CREATE PROCEDURE user_info_Add_gender ()
+BEGIN
+ 
+IF NOT EXISTS (
+	SELECT
+		1
+	FROM
+		information_schema.`COLUMNS`
+	WHERE
+		table_name = 'user_info'
+	AND column_name = 'gender'
+) THEN
+	ALTER TABLE user_info ADD COLUMN gender varchar(20) DEFAULT 'secrecy'  NOT NULL COMMENT '性别';
+END
+IF ; END$$
+ 
+DELIMITER ; 
+CALL user_info_Add_gender ;
+
+DROP PROCEDURE user_info_Add_gender;
+
+
+DROP PROCEDURE
+IF EXISTS contest_Add_rank_show_name;
+DELIMITER $$
+ 
+CREATE PROCEDURE contest_Add_rank_show_name ()
+BEGIN
+ 
+IF NOT EXISTS (
+	SELECT
+		1
+	FROM
+		information_schema.`COLUMNS`
+	WHERE
+		table_name = 'contest'
+	AND column_name = 'rank_show_name'
+) THEN
+	ALTER TABLE contest ADD COLUMN rank_show_name varchar(20) DEFAULT 'username' COMMENT '排行榜显示（username、nickname、realname）';
+END
+IF ; END$$
+ 
+DELIMITER ; 
+CALL contest_Add_rank_show_name ;
+
+DROP PROCEDURE contest_Add_rank_show_name;
+
+/*
+* 2021.10.08 user_info增加性别列gender 比赛榜单用户名称显示可选
+			 
+*/
+DROP PROCEDURE
+IF EXISTS contest_problem_Add_color;
+DELIMITER $$
+ 
+CREATE PROCEDURE contest_problem_Add_color ()
+BEGIN
+ 
+IF NOT EXISTS (
+	SELECT
+		1
+	FROM
+		information_schema.`COLUMNS`
+	WHERE
+		table_name = 'contest_problem'
+	AND column_name = 'color'
+) THEN
+	ALTER TABLE contest_problem ADD COLUMN `color` VARCHAR(255) NULL   COMMENT '气球颜色';
+	ALTER TABLE user_info ADD COLUMN `title_name` VARCHAR(255) NULL   COMMENT '头衔、称号';
+	ALTER TABLE user_info ADD COLUMN `title_color` VARCHAR(255) NULL   COMMENT '头衔、称号的颜色';
+END
+IF ; END$$
+ 
+DELIMITER ; 
+CALL contest_problem_Add_color ;
+
+DROP PROCEDURE contest_problem_Add_color;
