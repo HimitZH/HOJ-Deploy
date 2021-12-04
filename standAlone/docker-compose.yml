@@ -170,6 +170,7 @@ services:
       timeout: 10s
       retries: 3
     privileged: true # 设置容器的权限为root
+    shm_size: 512mb
     networks:
       hoj-network:
         ipv4_address: 172.20.0.7

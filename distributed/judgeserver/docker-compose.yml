@@ -30,6 +30,7 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
+    shm_size: 512mb
     privileged: true # 设置容器的权限为root
 
   hoj-rsync-slave:
