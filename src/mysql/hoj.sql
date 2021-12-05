@@ -142,6 +142,7 @@ CREATE TABLE `contest` (
   `duration` bigint(20) DEFAULT NULL COMMENT '比赛时长(s)',
   `seal_rank` tinyint(1) DEFAULT '0' COMMENT '是否开启封榜',
   `seal_rank_time` datetime DEFAULT NULL COMMENT '封榜起始时间，一直到比赛结束，不刷新榜单',
+  `auto_real_rank` tinyint(1) DEFAULT '1' COMMENT '比赛结束是否自动解除封榜,自动转换成真实榜单',
   `status` int(11) DEFAULT NULL COMMENT '-1为未开始，0为进行中，1为已结束',
   `visible` tinyint(1) DEFAULT '1' COMMENT '是否可见',
   `open_print` tinyint(1) DEFAULT '0' COMMENT '是否打开打印功能',
@@ -885,7 +886,7 @@ CREATE TABLE `training_category` (
 DROP TABLE IF EXISTS `training_problem`;
 
 CREATE TABLE `training_problem` (
-  `id` bigint unsigned NOT NULL,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `tid` bigint unsigned NOT NULL COMMENT '训练id',
   `pid` bigint unsigned NOT NULL COMMENT '题目id',
   `rank` int DEFAULT '0',
