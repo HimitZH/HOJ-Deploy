@@ -149,6 +149,8 @@ CREATE TABLE `contest` (
   `open_account_limit` tinyint(1) DEFAULT '0' COMMENT '是否开启账号限制',
   `account_limit_rule` mediumtext COMMENT '账号限制规则',
   `rank_show_name` varchar(20) DEFAULT 'username' COMMENT '排行榜显示（username、nickname、realname）',
+  `open_rank` tinyint(1) DEFAULT '0' COMMENT '是否开放比赛榜单',
+  `star_account` mediumtext COMMENT '打星用户列表',
   `gmt_create` datetime DEFAULT CURRENT_TIMESTAMP,
   `gmt_modified` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`,`uid`),

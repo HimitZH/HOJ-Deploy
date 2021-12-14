@@ -464,7 +464,7 @@ DROP PROCEDURE
 IF EXISTS contest_Add_auto_real_rank;
 DELIMITER $$
  
-CREATE PROCEDURE contest_Add_auto_real_rank; ()
+CREATE PROCEDURE contest_Add_auto_real_rank()
 BEGIN
  
 IF NOT EXISTS (
@@ -473,7 +473,7 @@ IF NOT EXISTS (
 	FROM
 		information_schema.`COLUMNS`
 	WHERE
-		table_name = 'conetst'
+		table_name = 'contest'
 	AND column_name = 'auto_real_rank'
 ) THEN
 	ALTER TABLE `hoj`.`contest`  ADD COLUMN `auto_real_rank` BOOLEAN DEFAULT 1  NULL  COMMENT '比赛结束是否自动解除封榜,自动转换成真实榜单';
@@ -521,6 +521,39 @@ END
 IF ; END$$
  
 DELIMITER ; 
-CALL contest_Add_auto_real_rank; ;
+CALL contest_Add_auto_real_rank; 
 
-DROP PROCEDURE contest_Add_auto_real_rank;;
+DROP PROCEDURE contest_Add_auto_real_rank;
+
+
+
+
+/*
+* 2021.12.07 contest增加打星账号列表、是否开放榜单
+			 
+*/
+DROP PROCEDURE
+IF EXISTS contest_Add_star_account_And_open_rank;
+DELIMITER $$
+ 
+CREATE PROCEDURE contest_Add_star_account_And_open_rank ()
+BEGIN
+ 
+IF NOT EXISTS (
+	SELECT
+		1
+	FROM
+		information_schema.`COLUMNS`
+	WHERE
+		table_name = 'contest'
+	AND column_name = 'star_account'
+) THEN
+	ALTER TABLE `hoj`.`contest`  ADD COLUMN `star_account` mediumtext COMMENT '打星用户列表';
+	ALTER TABLE `hoj`.`contest`  ADD COLUMN `open_rank` BOOLEAN DEFAULT 0 NULL  COMMENT '是否开放比赛榜单';
+END
+IF ; END$$
+ 
+DELIMITER ; 
+CALL contest_Add_star_account_And_open_rank ;
+
+DROP PROCEDURE contest_Add_star_account_And_open_rank;
