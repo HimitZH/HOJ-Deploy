@@ -6,7 +6,7 @@ services:
     container_name: hoj-redis
     restart: always
     volumes:
-      - ./hoj/data/redis/data:/data
+      - ${HOJ_DATA_DIRECTORY}/data/redis/data:/data
     networks:
       hoj-network:
         ipv4_address: ${REDIS_HOST:-172.20.0.2}
@@ -20,7 +20,7 @@ services:
     container_name: hoj-mysql
     restart: always
     volumes:
-      - ./hoj/data/mysql/data:/var/lib/mysql
+      - ${HOJ_DATA_DIRECTORY}/data/mysql/data:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-hoj123456} # mysql数据库root账号的密码
       - TZ=Asia/Shanghai
@@ -70,9 +70,9 @@ services:
       - hoj-mysql
       - hoj-nacos
     volumes:
-      - ./hoj/file:/hoj/file
-      - ./hoj/testcase:/hoj/testcase
-      - ./hoj/log/backend:/hoj/log/backend
+      - ${HOJ_DATA_DIRECTORY}/file:/hoj/file
+      - ${HOJ_DATA_DIRECTORY}/testcase:/hoj/testcase
+      - ${HOJ_DATA_DIRECTORY}/log/backend:/hoj/log/backend
     environment:
       - TZ=Asia/Shanghai
       - JAVA_OPTS=-Xms192m -Xmx384m
@@ -144,11 +144,11 @@ services:
       - hoj-mysql
       - hoj-nacos
     volumes:
-      - ./hoj/testcase:/judge/test_case
-      - ./hoj/judge/log:/judge/log
-      - ./hoj/judge/run:/judge/run
-      - ./hoj/judge/spj:/judge/spj
-      - ./hoj/log/judgeserver:/judge/log/judgeserver
+      - ${HOJ_DATA_DIRECTORY}/testcase:/judge/test_case
+      - ${HOJ_DATA_DIRECTORY}/judge/log:/judge/log
+      - ${HOJ_DATA_DIRECTORY}/judge/run:/judge/run
+      - ${HOJ_DATA_DIRECTORY}/judge/spj:/judge/spj
+      - ${HOJ_DATA_DIRECTORY}/log/judgeserver:/judge/log/judgeserver
     environment:
       - TZ=Asia/Shanghai
       - JAVA_OPTS=-Xms192m -Xmx384m # 修正JVM参数以便适应单机部署

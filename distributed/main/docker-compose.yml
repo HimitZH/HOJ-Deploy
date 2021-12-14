@@ -6,7 +6,7 @@ services:
     container_name: hoj-redis
     restart: always
     volumes:
-      - ./hoj/data/redis/data:/data
+      - ${HOJ_DATA_DIRECTORY}/data/redis/data:/data
     networks:
       hoj-network:
         ipv4_address: ${REDIS_HOST:-172.20.0.2}
@@ -20,7 +20,7 @@ services:
     container_name: hoj-mysql
     restart: always
     volumes:
-      - ./hoj/data/mysql/data:/var/lib/mysql
+      - ${HOJ_DATA_DIRECTORY}/data/mysql/data:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-hoj123456} # mysql数据库root账号的密码
       - TZ=Asia/Shanghai
@@ -70,9 +70,9 @@ services:
       - hoj-mysql
       - hoj-nacos
     volumes:
-      - ./hoj/file:/hoj/file
-      - ./hoj/testcase:/hoj/testcase
-      - ./hoj/log/backend:/hoj/log/backend
+      - ${HOJ_DATA_DIRECTORY}/file:/hoj/file
+      - ${HOJ_DATA_DIRECTORY}/testcase:/hoj/testcase
+      - ${HOJ_DATA_DIRECTORY}/log/backend:/hoj/log/backend
     environment:
       - TZ=Asia/Shanghai
       - BACKEND_SERVER_PORT=${BACKEND_PORT:-6688}
@@ -139,7 +139,7 @@ services:
     image: registry.cn-shenzhen.aliyuncs.com/hcode/hoj_rsync:1.0
     container_name: hoj-rsync-master
     volumes:
-      - ./hoj/testcase:/hoj/testcase:ro
+      - ${HOJ_DATA_DIRECTORY}/testcase:/hoj/testcase:ro
     environment:
       - RSYNC_MODE=master
       - RSYNC_USER=hojrsync 

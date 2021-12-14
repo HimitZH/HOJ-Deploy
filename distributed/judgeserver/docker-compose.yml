@@ -6,11 +6,11 @@ services:
     container_name: hoj-judgeserver
     restart: always
     volumes:
-      - ./judge/test_case:/judge/test_case
-      - ./judge/log:/judge/log
-      - ./judge/run:/judge/run
-      - ./judge/spj:/judge/spj
-      - ./judge/log/judgeserver:/judge/log/judgeserver
+      - ${HOJ_JUDGESERVER_DATA_DIRECTORY}/test_case:/judge/test_case
+      - ${HOJ_JUDGESERVER_DATA_DIRECTORY}/log:/judge/log
+      - ${HOJ_JUDGESERVER_DATA_DIRECTORY}/run:/judge/run
+      - ${HOJ_JUDGESERVER_DATA_DIRECTORY}/spj:/judge/spj
+      - ${HOJ_JUDGESERVER_DATA_DIRECTORY}/log/judgeserver:/judge/log/judgeserver
     environment:
       - TZ=Asia/Shanghai
       - JUDGE_SERVER_IP=${JUDGE_SERVER_IP} # 服务器公网ip
@@ -38,8 +38,8 @@ services:
     container_name: hoj-rsync-slave
     restart: always
     volumes:
-      - ./judge/test_case:/hoj/testcase
-      - ./judge/log:/hoj/log
+      - ${HOJ_JUDGESERVER_DATA_DIRECTORY}/test_case:/hoj/testcase
+      - ${HOJ_JUDGESERVER_DATA_DIRECTORY}/log:/hoj/log
     environment:
       - RSYNC_MODE=slave # 当前为slave从服务
       - RSYNC_USER=hojrsync # 与主服务器的rsync的用户一致
