@@ -557,3 +557,35 @@ DELIMITER ;
 CALL contest_Add_star_account_And_open_rank ;
 
 DROP PROCEDURE contest_Add_star_account_And_open_rank;
+
+
+
+/*
+* 2021.12.19 judge表删除tid
+			 
+*/
+DROP PROCEDURE
+IF EXISTS judge_Delete_tid;
+DELIMITER $$
+ 
+CREATE PROCEDURE judge_Delete_tid ()
+BEGIN
+ 
+IF EXISTS (
+	SELECT
+		1
+	FROM
+		information_schema.`COLUMNS`
+	WHERE
+		table_name = 'judge'
+	AND column_name = 'tid'
+) THEN
+	ALTER TABLE `hoj`.`judge` DROP foreign key `judge_ibfk_4`;
+	ALTER TABLE `hoj`.`judge` DROP COLUMN `tid`;
+END
+IF ; END$$
+ 
+DELIMITER ; 
+CALL judge_Delete_tid ;
+
+DROP PROCEDURE judge_Delete_tid;
