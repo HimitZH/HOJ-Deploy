@@ -19,9 +19,10 @@ services:
       - NACOS_URL=${NACOS_HOST}:${NACOS_PORT}  # nacos所在服务的ip:port
       - NACOS_USERNAME=${NACOS_USERNAME:-root}  # 分布式需要修正nacos账号密码
       - NACOS_PASSWORD=${NACOS_PASSWORD:-hoj123456}
-      - MAX_TASK_NUM=${MAX_TASK_NUM:--1} # -1表示最大并行任务数为cpu核心数+1
+      - MAX_TASK_NUM=${MAX_TASK_NUM:--1} # -1表示最大可接收判题任务数为cpu核心数+1
       - REMOTE_JUDGE_OPEN=${REMOTE_JUDGE_OPEN:-true} # 当前判题服务器是否开启远程虚拟判题功能
-      - REMOTE_JUDGE_MAX_TASK_NUM=${REMOTE_JUDGE_MAX_TASK_NUM:--1} # -1表示最大并行任务数为cpu核心数*2+1
+      - REMOTE_JUDGE_MAX_TASK_NUM=${REMOTE_JUDGE_MAX_TASK_NUM:--1} # -1表示最大可接收远程判题任务数为cpu核心数*2+1
+      - PARALLEL_TASK=${PARALLEL_TASK:-default} # 默认沙盒并行判题程序数为cpu核心数
     ports:
       - ${JUDGE_SERVER_PORT:-8088}:${JUDGE_SERVER_PORT:-8088}
       # - "0.0.0.0:5050:5050" # 一般不开放安全沙盒端口

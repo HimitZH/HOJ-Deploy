@@ -35,6 +35,7 @@ services:
       - ./judge/log/judgeserver:/judge/log/judgeserver
     environment:
       - TZ=Asia:/Shanghai
+      - PARALLEL_TASK=default # 默认沙盒并行判题数为cpu核心数
       - JUDGE_SERVER_IP=your_judgeserver_ip # 判题服务所在的ip
       - JUDGE_SERVER_PORT=8088 # 判题服务启动的端口号
       - JUDGE_SERVER_NAME=hoj-judger-1 # 判题服务名字，多个判题服务请使用不同
