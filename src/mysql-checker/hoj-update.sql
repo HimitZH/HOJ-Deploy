@@ -549,7 +549,7 @@ IF NOT EXISTS (
 	AND column_name = 'star_account'
 ) THEN
 	ALTER TABLE `hoj`.`contest`  ADD COLUMN `star_account` mediumtext COMMENT '打星用户列表';
-	ALTER TABLE `hoj`.`contest`  ADD COLUMN `open_rank` BOOLEAN DEFAULT 0 NULL  COMMENT '是否开放比赛榜单';
+	ALTER TABLE `hoj`.`contest`  ADD COLUMN `open_rank` BOOLEAN DEFAULT 0 NULL  COMMENT '是否开放赛外榜单';
 END
 IF ; END$$
  
