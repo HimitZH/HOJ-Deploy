@@ -10,6 +10,7 @@ services:
       - ${HOJ_JUDGESERVER_DATA_DIRECTORY}/log:/judge/log
       - ${HOJ_JUDGESERVER_DATA_DIRECTORY}/run:/judge/run
       - ${HOJ_JUDGESERVER_DATA_DIRECTORY}/spj:/judge/spj
+      - ${HOJ_JUDGESERVER_DATA_DIRECTORY}/interactive:/judge/interactive
       - ${HOJ_JUDGESERVER_DATA_DIRECTORY}/log/judgeserver:/judge/log/judgeserver
     environment:
       - TZ=Asia/Shanghai

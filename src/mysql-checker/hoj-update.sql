@@ -589,3 +589,37 @@ DELIMITER ;
 CALL judge_Delete_tid ;
 
 DROP PROCEDURE judge_Delete_tid;
+
+
+/*
+* 202.01.03 problem表增加mode，user_extra_file，judge_extra_file用于区别普通判题、特殊判题、交互判题
+			 
+*/
+DROP PROCEDURE
+IF EXISTS problem_Add_judge_mode;
+DELIMITER $$
+ 
+CREATE PROCEDURE problem_Add_judge_mode ()
+BEGIN
+ 
+IF NOT EXISTS (
+	SELECT
+		1
+	FROM
+		information_schema.`COLUMNS`
+	WHERE
+		table_name = 'problem'
+	AND column_name = 'judge_mode'
+) THEN
+	ALTER TABLE `hoj`.`problem`  ADD COLUMN `judge_mode` varchar(255) DEFAULT 'default' COMMENT '题目评测模式,default、spj、interactive';
+	ALTER TABLE `hoj`.`problem`  ADD COLUMN `user_extra_file` mediumtext DEFAULT NULL COMMENT '题目评测时用户程序的额外额外文件 json key:name value:content';
+	ALTER TABLE `hoj`.`problem`  ADD COLUMN `judge_extra_file` mediumtext DEFAULT NULL COMMENT '题目评测时交互或特殊程序的额外额外文件 json key:name value:content';
+END
+IF ; END$$
+ 
+DELIMITER ; 
+CALL problem_Add_judge_mode ;
+
+DROP PROCEDURE problem_Add_judge_mode;
+
+

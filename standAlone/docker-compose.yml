@@ -148,6 +148,7 @@ services:
       - ${HOJ_DATA_DIRECTORY}/judge/log:/judge/log
       - ${HOJ_DATA_DIRECTORY}/judge/run:/judge/run
       - ${HOJ_DATA_DIRECTORY}/judge/spj:/judge/spj
+      - ${HOJ_DATA_DIRECTORY}/judge/interactive:/judge/interactive
       - ${HOJ_DATA_DIRECTORY}/log/judgeserver:/judge/log/judgeserver
     environment:
       - TZ=Asia/Shanghai
