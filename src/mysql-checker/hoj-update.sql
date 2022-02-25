@@ -592,7 +592,7 @@ DROP PROCEDURE judge_Delete_tid;
 
 
 /*
-* 202.01.03 problem表增加mode，user_extra_file，judge_extra_file用于区别普通判题、特殊判题、交互判题
+* 2022.01.03 problem表增加mode，user_extra_file，judge_extra_file用于区别普通判题、特殊判题、交互判题
 			 
 */
 DROP PROCEDURE
