@@ -151,6 +151,7 @@ CREATE TABLE `contest` (
   `rank_show_name` varchar(20) DEFAULT 'username' COMMENT '排行榜显示（username、nickname、realname）',
   `open_rank` tinyint(1) DEFAULT '0' COMMENT '是否开放比赛榜单',
   `star_account` mediumtext COMMENT '打星用户列表',
+  `oi_rank_score_type` varchar(255) DEFAULT 'Recent' COMMENT 'oi排行榜得分方式，Recent、Highest',
   `gmt_create` datetime DEFAULT CURRENT_TIMESTAMP,
   `gmt_modified` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`,`uid`),

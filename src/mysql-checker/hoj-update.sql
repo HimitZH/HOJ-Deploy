@@ -623,3 +623,33 @@ CALL problem_Add_judge_mode ;
 DROP PROCEDURE problem_Add_judge_mode;
 
 
+/*
+* 2022.03.02 contest表增加oi_rank_score_type
+			 
+*/
+DROP PROCEDURE
+IF EXISTS contest_Add_oi_rank_score_type;
+DELIMITER $$
+ 
+CREATE PROCEDURE contest_Add_oi_rank_score_type ()
+BEGIN
+ 
+IF NOT EXISTS (
+	SELECT
+		1
+	FROM
+		information_schema.`COLUMNS`
+	WHERE
+		table_name = 'contest'
+	AND column_name = 'oi_rank_score_type'
+) THEN
+	ALTER TABLE `hoj`.`contest`  ADD COLUMN `oi_rank_score_type` varchar(255) DEFAULT 'Recent' COMMENT 'oi排行榜得分方式，Recent、Highest';
+END
+IF ; END$$
+ 
+DELIMITER ; 
+CALL contest_Add_oi_rank_score_type ;
+
+DROP PROCEDURE contest_Add_oi_rank_score_type;
+
+
