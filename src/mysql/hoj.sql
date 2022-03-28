@@ -996,6 +996,7 @@ CREATE TABLE `group` (
   `brief` varchar(50) COMMENT '团队简介',
   `description` longtext COMMENT '团队介绍',
   `owner` varchar(255) NOT NULL COMMENT '团队拥有者用户名',
+  `uid` varchar(32) NOT NULL COMMENT '团队拥有者用户id',
   `auth` int(11) NOT NULL COMMENT '0为Public，1为Protected，2为Private',
   `visible` tinyint(1) DEFAULT '1' COMMENT '是否可见',
   `status` tinyint(1) DEFAULT '0' COMMENT '是否封禁',
@@ -1004,7 +1005,8 @@ CREATE TABLE `group` (
   `gmt_modified` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `NAME_UNIQUE` (`name`),
-  UNIQUE KEY `short_name` (`short_name`)
+  UNIQUE KEY `short_name` (`short_name`),
+  CONSTRAINT `group_ibfk_1` FOREIGN KEY (`uid`) REFERENCES `user_info` (`uuid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1000 DEFAULT CHARSET=utf8;
 
 /*Table structure for table `group_member` */
