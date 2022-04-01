@@ -200,7 +200,7 @@ hoj-frontend:
 
 # 最后
 
-在线文档：[HOJ文档 https://www.hcode.top/doc](https://www.hcode.top/docs)
+在线文档：[HOJ文档 https://docs.hdoi.cn](https://docs.hdoi.cn)
 
 在线demo：[https://www.hcode.top](https://www.hcode.top)
 
