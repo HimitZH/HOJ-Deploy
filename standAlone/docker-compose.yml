@@ -97,7 +97,7 @@ services:
       - REDIS_HOST=${REDIS_HOST:-172.20.0.2}
       - REDIS_PORT=6379
       - REDIS_PASSWORD=${REDIS_PASSWORD:-hoj123456}
-      - OPEN_REMOTE_JUDGE=true # 是否开启对hdu和codeforces的虚拟判题
+      - OPEN_REMOTE_JUDGE=true # 是否开启各个remote judge
       # 开启虚拟判题请提供对应oj的账号密码 格式为 
       # username1,username2,...
       # password1,password2,...
@@ -111,6 +111,8 @@ services:
       - ATCODER_ACCOUNT_PASSWORD_LIST=${ATCODER_ACCOUNT_PASSWORD_LIST}
       - SPOJ_ACCOUNT_USERNAME_LIST=${SPOJ_ACCOUNT_USERNAME_LIST}
       - SPOJ_ACCOUNT_PASSWORD_LIST=${SPOJ_ACCOUNT_PASSWORD_LIST}
+      # 是否强制使用配置文件的remote judge账号覆盖原有系统的账号列表
+      - FORCED_UPDATE_REMOTE_JUDGE_ACCOUNT=${FORCED_UPDATE_REMOTE_JUDGE_ACCOUNT:-false}
     ports:
       - ${BACKEND_PORT:-6688}:${BACKEND_PORT:-6688}
     networks:
