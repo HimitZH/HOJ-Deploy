@@ -85,7 +85,7 @@ services:
       - JWT_TOKEN_FRESH_EXPIRE=${JWT_TOKEN_FRESH_EXPIRE:-43200} # token默认12小时可自动刷新
       - JUDGE_TOKEN=${JUDGE_TOKEN:-default} # 调用判题服务器的token 默认则生成32位随机密钥
       - MYSQL_HOST=${MYSQL_HOST:-172.20.0.3}
-      - MYSQL_PUBLIC_HOST=${MYSQL_PUBLIC_HOST:-172.20.0.3} # 如果判题服务是分布式，请提供当前mysql所在服务器的公网ip
+      - MYSQL_PUBLIC_HOST=${MYSQL_PUBLIC_HOST} # 如果判题服务是分布式，请提供当前mysql所在服务器的公网ip
       - MYSQL_PUBLIC_PORT=${MYSQL_PUBLIC_PORT:-3306}
       - MYSQL_PORT=3306
       - MYSQL_DATABASE_NAME=hoj # 改动需要修改hoj-mysql镜像,默认为hoj
