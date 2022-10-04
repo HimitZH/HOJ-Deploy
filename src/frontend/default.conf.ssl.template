@@ -43,5 +43,9 @@ server {
             index index.html;
             try_files $uri $uri/ /index.html;
     }
-	
+	location ^~ /scrollBoard{
+        alias   /usr/share/nginx/scrollBoard;
+        try_files $uri $uri/ /index.html;
+        index index.html index.htm;
+    }
 }

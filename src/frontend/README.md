@@ -169,7 +169,11 @@ server {
             index index.html;
             try_files $uri $uri/ /index.html;
     }
-	
+  	location ^~ /scrollBoard{
+        alias   /usr/share/nginx/scrollBoard;
+        try_files $uri $uri/ /index.html;
+        index index.html index.htm;
+    }
 }
 ```
 
@@ -200,6 +204,8 @@ COPY default.conf.template /etc/nginx/conf.d/default.conf.template
 COPY default.conf.ssl.template /etc/nginx/conf.d/default.conf.ssl.template
 
 ADD html/ /usr/share/nginx/html/
+
+ADD scrollBoard/ /usr/share/nginx/scrollBoard/
 
 COPY ./run.sh /docker-entrypoint.sh
 
