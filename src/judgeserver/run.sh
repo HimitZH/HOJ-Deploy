@@ -3,14 +3,14 @@ ulimit -s unlimited
 chmod +777 SandBox
 
 if test -z "$PARALLEL_TASK";then
-	nohup ./SandBox --silent=true --file-timeout=10m &
-	echo -e "\033[42;34m ./SandBox --silent=true --file-timeout=10m \033[0m"
+	nohup ./SandBox --silent=true --file-timeout=2m &
+	echo -e "\033[42;34m ./SandBox --silent=true --file-timeout=2m \033[0m"
 elif [ -z "$(echo $PARALLEL_TASK | sed 's#[0-9]##g')" ]; then
-	nohup ./SandBox --silent=true --file-timeout=10m --parallelism=$PARALLEL_TASK &
-	echo -e "\033[42;34m ./SandBox --silent=true --file-timeout=10m --parallelism=$PARALLEL_TASK \033[0m"
+	nohup ./SandBox --silent=true --file-timeout=2m --parallelism=$PARALLEL_TASK &
+	echo -e "\033[42;34m ./SandBox --silent=true --file-timeout=2m --parallelism=$PARALLEL_TASK \033[0m"
 else
-	nohup ./SandBox --silent=true --file-timeout=10m &
-	echo -e "\033[42;34m ./SandBox --silent=true --file-timeout=10m \033[0m"
+	nohup ./SandBox --silent=true --file-timeout=2m &
+	echo -e "\033[42;34m ./SandBox --silent=true --file-timeout=2m \033[0m"
 fi
 
 if test -z "$JAVA_OPTS";then
