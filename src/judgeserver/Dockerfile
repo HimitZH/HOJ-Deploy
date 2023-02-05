@@ -31,7 +31,8 @@ COPY check_nacos.sh /judge/server/check_nacos.sh
 
 COPY testlib.h /usr/include/testlib.h
 
-ADD SandBox /judge/server/SandBox	
+ADD Sandbox-amd64 /judge/server/Sandbox-amd64
+ADD Sandbox-arm64 /judge/server/Sandbox-arm64
 	
 WORKDIR /judge/server
 

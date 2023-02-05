@@ -2,7 +2,10 @@ version: "3"
 services:
 
   hoj-judgeserver:
+    #仅支持amd64
     image: registry.cn-shenzhen.aliyuncs.com/hcode/hoj_judgeserver
+    #支持amd64、arm64
+    #image: himitzh/hoj_judgeserver
     container_name: hoj-judgeserver
     restart: always
     volumes:
@@ -36,7 +39,10 @@ services:
     privileged: true # 设置容器的权限为root
 
   hoj-rsync-slave:
+    #仅支持amd64
     image: registry.cn-shenzhen.aliyuncs.com/hcode/hoj_rsync:1.0
+    #支持amd64、arm64
+    #image: himitzh/hoj_rsync
     container_name: hoj-rsync-slave
     restart: always
     volumes:

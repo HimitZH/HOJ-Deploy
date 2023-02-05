@@ -16,7 +16,10 @@ services:
     command: redis-server --requirepass ${REDIS_PASSWORD:-hoj123456} --appendonly yes
         
   hoj-mysql:
+    #仅支持amd64
     image: registry.cn-shenzhen.aliyuncs.com/hcode/hoj_database
+    #支持amd64、arm64
+    #image: himitzh/hoj_database
     container_name: hoj-mysql
     restart: always
     volumes:
@@ -62,7 +65,10 @@ services:
         ipv4_address: ${NACOS_HOST:-172.20.0.4}
     
   hoj-backend:
+    #仅支持amd64
     image: registry.cn-shenzhen.aliyuncs.com/hcode/hoj_backend
+    #支持amd64、arm64
+    #image: himitzh/hoj_backend
     container_name: hoj-backend
     restart: always
     depends_on:
@@ -121,7 +127,10 @@ services:
         ipv4_address: ${BACKEND_HOST:-172.20.0.5}
   
   hoj-frontend:
+    #仅支持amd64
     image: registry.cn-shenzhen.aliyuncs.com/hcode/hoj_frontend
+    #支持amd64、arm64
+    #image: himitzh/hoj_frontend
     container_name: hoj-frontend
     restart: always
     # 开启https，请提供证书
@@ -144,7 +153,10 @@ services:
         ipv4_address: 172.20.0.6
   
   hoj-judgeserver:
+    #仅支持amd64
     image: registry.cn-shenzhen.aliyuncs.com/hcode/hoj_judgeserver
+    #支持amd64、arm64
+    #image: himitzh/hoj_judgeserver
     container_name: hoj-judgeserver
     restart: always
     depends_on:
@@ -186,7 +198,10 @@ services:
 
 
   hoj-mysql-checker:
+    #仅支持amd64
     image: registry.cn-shenzhen.aliyuncs.com/hcode/hoj_database_checker
+    #支持amd64、arm64
+    #image: himitzh/hoj_database_checker
     container_name: hoj-mysql-checker
     depends_on:
       - hoj-mysql
