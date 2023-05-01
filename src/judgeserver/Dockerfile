@@ -10,7 +10,7 @@ RUN buildDeps='software-properties-common libtool wget unzip' && \
 	apt-get update && apt-get install -y golang-go openjdk-8-jdk gcc-9 g++-9 && \
     update-alternatives --install  /usr/bin/gcc gcc /usr/bin/gcc-9 40 && \
     update-alternatives --install  /usr/bin/g++ g++ /usr/bin/g++-9 40 && \
-	add-apt-repository ppa:pypy/ppa && apt-get update && apt install -y pypy pypy3 && \
+	add-apt-repository ppa:pypy/ppa && apt-get update && apt install -y pypy pypy3.8 && \
 	add-apt-repository ppa:ondrej/php && apt-get update && apt-get install -y php7.3-cli && \
 	cd /tmp && wget -O jsv8.zip  https://storage.googleapis.com/chromium-v8/official/canary/v8-linux64-dbg-8.4.109.zip && \
 	unzip -d /usr/bin/jsv8 jsv8.zip && rm -rf /tmp/jsv8.zip && \
