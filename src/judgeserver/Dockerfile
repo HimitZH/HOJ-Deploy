@@ -6,8 +6,10 @@ ENV TZ=Asia/Shanghai
 
 RUN buildDeps='software-properties-common libtool wget unzip' && \
     apt-get update && apt-get install -y python python3.7 mono-devel $buildDeps curl bash && \
-    add-apt-repository ppa:openjdk-r/ppa && add-apt-repository ppa:longsleep/golang-backports && add-apt-repository ppa:ubuntu-toolchain-r/test && \
-	apt-get update && apt-get install -y golang-go openjdk-8-jdk gcc-9 g++-9 && \
+    add-apt-repository ppa:openjdk-r/ppa && add-apt-repository ppa:longsleep/golang-backports && \
+	add-apt-repository ppa:ubuntu-toolchain-r/test && \
+	apt-get update && apt-get install -y golang-1.19-go openjdk-8-jdk gcc-9 g++-9 && \
+	ln -s /usr/lib/go-1.19/bin/go /usr/bin/go && \
     update-alternatives --install  /usr/bin/gcc gcc /usr/bin/gcc-9 40 && \
     update-alternatives --install  /usr/bin/g++ g++ /usr/bin/g++-9 40 && \
 	add-apt-repository ppa:pypy/ppa && apt-get update && apt install -y pypy pypy3 && \
@@ -16,6 +18,8 @@ RUN buildDeps='software-properties-common libtool wget unzip' && \
 	unzip -d /usr/bin/jsv8 jsv8.zip && rm -rf /tmp/jsv8.zip && \
 	curl -fsSL https://deb.nodesource.com/setup_14.x | bash && \
 	apt-get install -y nodejs && \
+	apt-get install -y ruby && \
+	apt-get install -y rustc && \
     apt-get purge -y --auto-remove $buildDeps && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
