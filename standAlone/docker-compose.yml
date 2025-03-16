@@ -87,7 +87,7 @@ services:
       hoj-mysql:
         condition: service_healthy
       hoj-nacos:
-        condition: service_healthy
+        condition: service_started
     volumes:
       - ${HOJ_DATA_DIRECTORY}/file:/hoj/file
       - ${HOJ_DATA_DIRECTORY}/testcase:/hoj/testcase
